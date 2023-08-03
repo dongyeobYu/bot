@@ -12,7 +12,7 @@ public class TestBot implements ApplicationListener<ApplicationStartedEvent> {
 
 
     public void testBot() {
-        String token = "MTEzNjUzNzM4MzMwNzg1Mzg2NA.GdUg67.8XfJgo2_K0oIFjRy1wvvTf3OWn0zVpIZKr40fY";
+        String token = "";
 
         DiscordApi api = new DiscordApiBuilder().addIntents(Intent.MESSAGE_CONTENT).setToken(token).login().join();
 
