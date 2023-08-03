@@ -2,3 +2,5 @@ riche\
 *.imi
 
 .yml
+.build
+.gradle
