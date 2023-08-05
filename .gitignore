@@ -1,5 +1,5 @@
 bot/
 
-.yml
+application.yml
 build
 .gradle
