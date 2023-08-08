@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 public class TestBot implements ApplicationListener<ApplicationStartedEvent> {
 
     botToken botToken;
+    chatGPT chatGPT;
 
     @Autowired
     public void setBotToken(botToken botToken) {
@@ -25,8 +26,9 @@ public class TestBot implements ApplicationListener<ApplicationStartedEvent> {
         DiscordApi api = new DiscordApiBuilder().addIntents(Intent.MESSAGE_CONTENT).setToken(token).login().join();
 
         api.addMessageCreateListener(event -> {
-            if (event.getMessageContent().equalsIgnoreCase("메")){
-                event.getChannel().sendMessage("롱");
+
+            if("!gpt ".equals(event.getMessageContent().substring(0, 5))){
+                event.getChannel().sendMessage(chatGPT.chatGPT("리채님 메롱"));
             }
 
             if (event.getMessageContent().equalsIgnoreCase("토마토")){
