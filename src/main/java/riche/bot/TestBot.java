@@ -1,5 +1,6 @@
 package riche.bot;
 
+import lombok.extern.log4j.Log4j;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.intent.Intent;
@@ -15,6 +16,11 @@ public class TestBot implements ApplicationListener<ApplicationStartedEvent> {
     chatGPT chatGPT;
 
     @Autowired
+    public void setChatGPT(chatGPT chatGPT) {
+        this.chatGPT = chatGPT;
+    }
+
+    @Autowired
     public void setBotToken(botToken botToken) {
         this.botToken = botToken;
     }
@@ -27,9 +33,10 @@ public class TestBot implements ApplicationListener<ApplicationStartedEvent> {
 
         api.addMessageCreateListener(event -> {
 
-            if("!gpt ".equals(event.getMessageContent().substring(0, 5))){
-                String contents = event.getMessageContent().substring(6);
-                event.getChannel().sendMessage(chatGPT.chatGPT(contents));
+            String contents = event.getMessageContent();
+
+            if(chatGPT.isGPT(contents)){
+                event.getChannel().sendMessage("chatGPT 결과 : " + chatGPT.chatGPT(contents.substring(5)));
             }
 
             if (event.getMessageContent().equalsIgnoreCase("토마토")){
