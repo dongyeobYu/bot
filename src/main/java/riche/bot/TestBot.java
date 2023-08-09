@@ -28,7 +28,8 @@ public class TestBot implements ApplicationListener<ApplicationStartedEvent> {
         api.addMessageCreateListener(event -> {
 
             if("!gpt ".equals(event.getMessageContent().substring(0, 5))){
-                event.getChannel().sendMessage(chatGPT.chatGPT("리채님 메롱"));
+                String contents = event.getMessageContent().substring(6);
+                event.getChannel().sendMessage(chatGPT.chatGPT(contents));
             }
 
             if (event.getMessageContent().equalsIgnoreCase("토마토")){
