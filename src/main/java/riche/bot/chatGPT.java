@@ -1,17 +1,21 @@
 package riche.bot;
 
-import com.azure.ai.openai.OpenAIClient;
-import com.azure.ai.openai.OpenAIClientBuilder;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.theokanning.openai.completion.CompletionChoice;
+import com.theokanning.openai.completion.CompletionRequest;
+import com.theokanning.openai.service.OpenAiService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import okhttp3.OkHttpClient;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+
+import static com.theokanning.openai.service.OpenAiService.defaultClient;
+import static com.theokanning.openai.service.OpenAiService.defaultObjectMapper;
 
 @Component
 @Getter
@@ -19,18 +23,21 @@ import java.util.HashMap;
 @AllArgsConstructor
 public class chatGPT {
 
-    Key key;
+    private final Key key;
 
     public String callChatGPT(String prompt){
 
-        HashMap<String, String> hs = new HashMap<>();
-        hs.put("prompt", prompt);
-        hs.put("model", key.getModel());
+        OpenAiService aiService = new OpenAiService(key.getGptKey());
+        CompletionRequest completionRequest = CompletionRequest.builder()
+                .prompt(prompt)
+                .maxTokens(1000)
+                .echo(false)
+                .model(key.getModel())
+                .build();
 
-        Gson gson = new Gson();
-        String json = gson.toJson(hs);
+        List<CompletionChoice> ai = aiService.createCompletion(completionRequest).getChoices();
 
-        return prompt;
+        return ai.get(0).getText();
     }
 
     public Boolean isGPT(String contents){
