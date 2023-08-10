@@ -6,9 +6,15 @@ import org.springframework.stereotype.Component;
 
 @Getter
 @Component
-public class botToken {
+public class Key {
 
     @Value("${API.token}")
     private String token;
+
+    @Value("${GPT.GPTKey}")
+    private String gptKey;
+
+    @Value("${GPT.model}")
+    private String model;
 
 }
