@@ -1,6 +1,7 @@
 package riche.bot;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.intent.Intent;
@@ -10,10 +11,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class TestBot implements ApplicationListener<ApplicationStartedEvent> {
 
     Key Key;
     chatGPT chatGPT;
+    riche.bot.weather.regionApi regionApi;
 
     public void testBot() {
 

@@ -42,8 +42,9 @@ public class chatGPT {
 
     public Boolean isGPT(String contents){
 
+        log.info("isGPT called. contents = " + contents);
+
         if(contents.length() < 5){
-            log.info("isGPT/log/info = " + contents);
             return false;
         }
 
