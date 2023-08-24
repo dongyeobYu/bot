@@ -16,7 +16,6 @@ public class TestBot implements ApplicationListener<ApplicationStartedEvent> {
 
     Key Key;
     chatGPT chatGPT;
-    riche.bot.weather.regionApi regionApi;
 
     public void testBot() {
 

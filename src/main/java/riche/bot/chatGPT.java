@@ -1,21 +1,14 @@
 package riche.bot;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.theokanning.openai.completion.CompletionChoice;
 import com.theokanning.openai.completion.CompletionRequest;
 import com.theokanning.openai.service.OpenAiService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.OkHttpClient;
 import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
-import static com.theokanning.openai.service.OpenAiService.defaultClient;
-import static com.theokanning.openai.service.OpenAiService.defaultObjectMapper;
 
 @Component
 @Getter
