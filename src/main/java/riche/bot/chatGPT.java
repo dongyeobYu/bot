@@ -28,6 +28,8 @@ public class chatGPT {
                 .model(key.getModel())
                 .build();
 
+        System.out.println("completionRequest = " + completionRequest);
+
         List<CompletionChoice> ai = aiService.createCompletion(completionRequest).getChoices();
 
         return ai.get(0).getText();
