@@ -28,7 +28,11 @@ public class TestBot implements ApplicationListener<ApplicationStartedEvent> {
             String contents = event.getMessageContent();
 
             if(chatGPT.isGPT(contents)){
-                event.getChannel().sendMessage("chatGPT 결과 : " + chatGPT.callChatGPT(contents.substring(5)));
+                try {
+                    event.getChannel().sendMessage("chatGPT 결과 : " + chatGPT.callChatGPT(contents.substring(5)));
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             if (event.getMessageContent().equalsIgnoreCase("토마토")){
@@ -37,7 +41,7 @@ public class TestBot implements ApplicationListener<ApplicationStartedEvent> {
 
         });
 
-        System.out.println("You can invite the bot by using the Following url: " + api.createBotInvite());
+        log.info("You can invite the bot by using the Following url: " + api.createBotInvite());
     }
 
     @Override

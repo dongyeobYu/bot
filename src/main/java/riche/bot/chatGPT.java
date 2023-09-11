@@ -7,6 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import java.net.Socket;
+import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,7 +22,7 @@ public class chatGPT {
 
     private final Key key;
 
-    public String callChatGPT(String prompt){
+    public String callChatGPT(String prompt) throws InterruptedException {
 
         OpenAiService aiService = new OpenAiService(key.getGptKey());
         CompletionRequest completionRequest = CompletionRequest.builder()
@@ -28,10 +32,23 @@ public class chatGPT {
                 .model(key.getModel())
                 .build();
 
-        List<CompletionChoice> ai = aiService.createCompletion(completionRequest).getChoices();
+        List<CompletionChoice> ai;
 
-        return ai.get(0).getText();
+        int i = 3;
+        while(0 < i) {
+            try {
+                ai = aiService.createCompletion(completionRequest).getChoices();
+                return ai.get(0).getText();
+            } catch (RuntimeException re) {
+                i--;
+                Thread.sleep(1000);
+                log.info("callChatCPT is failed. trying : " + i);
+            }
+        }
+
+        return callChatGPT(prompt);
     }
+
 
     public Boolean isGPT(String contents){
 
