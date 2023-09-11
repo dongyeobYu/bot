@@ -46,7 +46,7 @@ public class chatGPT {
             }
         }
 
-        return callChatGPT(prompt);
+        return "연결상태가 좋지 않아요. 다시 시도해주세요.";
     }
 
 
